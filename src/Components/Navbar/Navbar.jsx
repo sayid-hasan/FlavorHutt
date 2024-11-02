@@ -8,16 +8,14 @@ import GlassmorphismButton from "../PrimaryButton/GlassmorphismBtn/Glassmorphism
 
 const Nav = () => {
   const loading = false;
-  const user = true;
+  const user = false;
   const navlinks = (
     <>
       <li className="flex">
         {" "}
         <NavLink
           to="/"
-          className={` ${({ isActive }) => {
-            return isActive ? "!bg-white text-red-500" : "";
-          }}  
+          className={`   
           flex items-center px-4 rounded-none pt-4 uppercase text-base text-[#3a3a3a] duration-75  `}
         >
           Home
@@ -111,13 +109,13 @@ const Nav = () => {
 
   return (
     <div>
-      <div className="navbar items-center md:items-center">
+      <div className="navbar items-center md:items-center font-firaSans">
         <div className="navbar-start">
           <div className="dropdown">
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost !pl-0 lg:hidden"
+              className="btn btn-ghost !pl-0 md:hidden"
             >
               {/* small screen icon */}
               <svg
@@ -146,13 +144,13 @@ const Nav = () => {
             to="/"
             className="  hover:tracking-wide transition-all duration-900 cursor-pointer rounded-full   text-2xl md:text-4xl font-bold  bg-opacity-70 md:py-5 py-2 px-0 h-auto min-h-0  "
           >
-            <h2 className="font-font-oswald">
-              <span className="text-[#f26767] text-4xl">F</span>lavor
-              <span className="text-[#f26767] text-4xl">H</span>utt
+            <h2 className="font-firaSans">
+              <span className="text-[#ff7f50] text-4xl">F</span>lavor
+              <span className="text-[#ff7f50] text-4xl">H</span>utt
             </h2>
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex ">
+        <div className="navbar-center hidden md:flex ">
           <ul className="menu menu-horizontal px-1 ">{navlinks}</ul>
         </div>
         <div className="navbar-end z-[4]">{buttonProfile}</div>

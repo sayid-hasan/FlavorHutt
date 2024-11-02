@@ -1,8 +1,10 @@
 .glassBtn-container .btn {
   position: relative;
+  width: 150px;
 }
 .glassBtn-container .btn span {
   position: absolute;
+  color: white;
   top: 0;
   left: 0;
   width: 100%;
@@ -43,10 +45,9 @@
 .glassBtn-container .btn:hover span::before {
   transform: skewX(45deg) translateX(190%);
 }
-@media (max-width: 800px) {
-  .glassBtn-container {
-    flex-direction: column;
-    gap: 40px;
+@media (min-width: 768px) {
+  .glassBtn-container .btn {
+    width: 200px;
   }
 }
 .glassBtn-container .btn::before {
