@@ -2,7 +2,7 @@ import Nav from "../../Components/Navbar/Navbar";
 
 const MainLayout = () => {
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <Nav></Nav>
     </div>
   );

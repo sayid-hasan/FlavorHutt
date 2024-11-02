@@ -1,20 +1,23 @@
 import { Link, NavLink } from "react-router-dom";
 
 import logo from "../../assets/Images/user.png";
-
+import "./navbar.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GlassmorphismButton from "../PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
 
 const Nav = () => {
   const loading = false;
-  const user = false;
+  const user = true;
   const navlinks = (
     <>
       <li className="flex">
         {" "}
         <NavLink
           to="/"
-          className={` 
+          className={` ${({ isActive }) => {
+            return isActive ? "!bg-white text-red-500" : "";
+          }}  
           flex items-center px-4 rounded-none pt-4 uppercase text-base text-[#3a3a3a] duration-75  `}
         >
           Home
@@ -57,7 +60,7 @@ const Nav = () => {
   const buttonProfile = (
     <>
       {/* buttons and user profile */}
-      <div className="items-center flex-shrink-0 lg:flex mt-4">
+      <div className="items-center flex-shrink-0 lg:flex ">
         {/* <button className="self-center px-8 py-3 rounded">Sign in</button> */}
         {loading ? (
           <>
@@ -94,9 +97,9 @@ const Nav = () => {
               <>
                 <Link
                   to="/login"
-                  className="self-center  w-full p-3 text-center border border-transparent rounded-lg bg-[#F26767]  text-white font-bold  dark:text-gray-50 hover:bg-transparent hover:text-black transition-all duration-300 hover:border-[#F26767] dark:bg-violet-600"
+                  className="self-center  w-full bg-transparent text-center border border-transparent"
                 >
-                  Sign in
+                  <GlassmorphismButton text="Sign In"></GlassmorphismButton>
                 </Link>
               </>
             )}
@@ -111,13 +114,17 @@ const Nav = () => {
       <div className="navbar items-center md:items-center">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost !pl-0 lg:hidden"
+            >
               {/* small screen icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-4 w-4"
                 fill="none"
-                viewBox="0 0 24 24"
+                viewBox="0 0 18  18 "
                 stroke="currentColor"
               >
                 <path
@@ -137,7 +144,7 @@ const Nav = () => {
           </div>
           <Link
             to="/"
-            className="btn btn-ghost   text-3xl md:text-4xl font-bold  bg-opacity-70 py-5 h-auto min-h-0  "
+            className="  hover:tracking-wide transition-all duration-900 cursor-pointer rounded-full   text-2xl md:text-4xl font-bold  bg-opacity-70 md:py-5 py-2 px-0 h-auto min-h-0  "
           >
             <h2 className="font-font-oswald">
               <span className="text-[#f26767] text-4xl">F</span>lavor
