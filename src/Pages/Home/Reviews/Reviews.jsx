@@ -7,7 +7,7 @@ const Reviews = () => {
       {/* review Text */}
       <div className="md:w-1/3 w-full font-frescha spac">
         <div className="flex flex-col  text-center md:text-left  ">
-          <h1 className="md:text-4xl my-4 text-2xl font-bold font-firaSans tracking-wide">
+          <h1 className="md:text-4xl my-4 !text-2xl font-bold font-firaSans tracking-wide">
             Our Customers Say It Best
           </h1>
           <p className="text-base text-[#b2b2b2] tracking-wider">
@@ -20,7 +20,7 @@ const Reviews = () => {
         </div>
       </div>
       {/* review carousol */}
-      <div className="md:w-2/3 w-full">
+      <div className="md:w-2/3 w-full reviewCarousol">
         <Carousol></Carousol>
       </div>
     </div>

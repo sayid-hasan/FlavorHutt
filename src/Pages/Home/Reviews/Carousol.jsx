@@ -17,9 +17,24 @@ const Carousol = () => {
     queryKey: ["topReviews"],
   });
   const params = {
-    slidesPerView: 2,
+    slidesPerView: 1,
     spaceBetween: 30,
     loop: true,
+    breakpoints: {
+      999: {
+        slidesPerView: 2,
+        spaceBetween: 30,
+      },
+      720: {
+        slidesPerView: 1,
+        spaceBetween: 30,
+      },
+
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 10,
+      },
+    },
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
