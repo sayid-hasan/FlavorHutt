@@ -1,0 +1,16 @@
+.swiper_container .swiper-slide img {
+  width: 80px;
+  height: 80px;
+  border-radius: 100000px;
+}
+.swiper_container .swiper-slide .card {
+  max-width: 26rem !important;
+  overflow: hidden !important;
+}
+.swiper_container .swiper-slide card-header {
+  margin: 0 auto;
+  display: flex !important;
+  align-items: center !important;
+  padding-top: 0;
+  padding-bottom: 32px !important;
+}
