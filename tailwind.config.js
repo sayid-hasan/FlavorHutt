@@ -5,6 +5,7 @@ export default {
     extend: {},
     fontFamily: {
       firaSans: `"Fira Sans", sans-serif`,
+      frescha: ` "Fresca", sans-serif;`,
     },
   },
   plugins: [require("daisyui")],
