@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import Banner from "../Banner/Banner";
 
 const Home = () => {
@@ -6,6 +7,9 @@ const Home = () => {
       className="max-w-7xl mx-auto px-1
     "
     >
+      <Helmet>
+        <title>FlavorHutt | Home</title>
+      </Helmet>
       <Banner></Banner>
     </div>
   );

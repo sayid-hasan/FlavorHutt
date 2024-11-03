@@ -7,14 +7,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import "./banner.css";
-import carousoul1 from "../../../../assets/Images/carousol1.jpg";
-import carousoul2 from "../../../../assets/Images/carousol2.jpg";
-import carousoul3 from "../../../../assets/Images/carousol3.jpg";
+import carousoul1 from "../../../assets/Images/carousol1.jpg";
+import carousoul2 from "../../../assets/Images/carousol2.jpg";
+import carousoul3 from "../../../assets/Images/carousol3.jpg";
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import fadeIn from "../../../../Utilities/varient";
-import BtnWithICon from "../../../PrimaryButton/NormalBtn/BtnWithICon";
+import fadeIn from "../../../Utilities/varient";
+import BtnWithICon from "../../../Components/PrimaryButton/NormalBtn/BtnWithICon";
 import { FaArrowRight } from "react-icons/fa";
 const Banner = () => {
   return (
