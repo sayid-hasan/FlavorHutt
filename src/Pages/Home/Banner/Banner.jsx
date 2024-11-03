@@ -52,7 +52,7 @@ const Banner = () => {
                     <br />
                     <span className="  md:text-[39px] ">
                       with our expertly crafted{" "}
-                      <span className="text-[#ff7f50]">dishes</span>
+                      <span className="text-[#B22222]">dishes</span>
                     </span>
                   </motion.div>
                   <motion.div
@@ -95,7 +95,7 @@ const Banner = () => {
                     <br />
                     <span className=" md:text-[39px] ">
                       where every detail from décor to
-                      <span className="text-[#ff7f50]"> service</span>
+                      <span className="text-[#B22222]"> service</span>
                     </span>
                   </motion.div>
                   <motion.div
@@ -135,7 +135,7 @@ const Banner = () => {
                     <span className=" md:text-[39px] ">
                       to celebrations with
                       <span>&#39;</span>s{" "}
-                      <span className="text-[#ff7f50]">friends,</span>
+                      <span className="text-[#B22222]">friends,</span>
                     </span>
                   </motion.div>
                   <motion.div
