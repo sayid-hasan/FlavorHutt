@@ -74,7 +74,7 @@ const FoodItemCard = ({ foodItem }) => {
               {foodName}
             </motion.h1>
 
-            <div className="text-[17px] font-frescha font-bold text-[#0FB478] ">
+            <div className="text-[17px] font-frescha font-bold text-[#B20000] ">
               {price} AED
             </div>
           </motion.div>
@@ -97,7 +97,7 @@ const FoodItemCard = ({ foodItem }) => {
             viewport={{ once: false, amount: 0.7 }}
             className="flex  justify-center  items-center mt-4 text-gray-700 dark:text-gray-200"
           >
-            <Link to={`/allfoodItems/${_id}`} className="">
+            <Link to={`/allFoodItems/${_id}`} className="">
               <GlassmorphismButton text="View Details"></GlassmorphismButton>
             </Link>
           </motion.div>
