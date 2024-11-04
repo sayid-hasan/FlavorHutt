@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div className=" w-full font-firaSans">
+    <div className=" max-w-[1400px] mx-auto w-full font-firaSans">
       <footer className="bg-white dark:bg-gray-900 overflow-x-hidden">
         <div className="container p-6 mx-auto">
           <div className="lg:flex">
@@ -160,7 +160,7 @@ const Footer = () => {
           <hr className="h-px my-6 bg-gray-200 border-none dark:bg-gray-700" />
 
           <div>
-            <p className="text-center text-gray-500 font-font-oswald dark:text-gray-400">
+            <p className="text-center text-gray-500 font-firaSans dark:text-gray-400">
               © FlavorHutt - All rights reserved
             </p>
           </div>
