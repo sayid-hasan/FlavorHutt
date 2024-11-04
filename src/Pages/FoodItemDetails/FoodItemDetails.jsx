@@ -26,10 +26,13 @@ const FoodItemDetails = () => {
     foodName,
     foodImg,
     description,
+    quantity,
     category,
     price,
+    addedBy: { name },
     starRating,
     foodDetails,
+    origin,
   } = foodItem;
   console.log(`food details page`, foodItem);
   console.log(`foodItemDetails page`, id);
@@ -68,12 +71,40 @@ const FoodItemDetails = () => {
             <h2 className="font-firaSans text-2xl md:text- font-bold">
               {foodName}
             </h2>
+            <div className="flex mt-2 font-bold font-Courgette justify-between items-center">
+              {/* origin */}
+              <div className="text-base text-[#613728] tracking-widest ">
+                <span className="text-lg ">{origin.slice(0, 1)}</span>
+                {origin.slice(1, origin.length)}
+              </div>
+              {/* prrice */}
+              <div className="text-[#B20000]">
+                <span className="text-2xl">{price.toString().slice(0, 1)}</span>
+                {price.toString().slice(1, price.toString().length)} AED
+              </div>
+            </div>
+
             <p className="mt-2 tracking-wide text-sm text-gray-600 dark:text-gray-400">
               <span className="font-firaSans text-xl text-[#B20000]">
                 {foodDetails.slice(0, 1)}
               </span>{" "}
               {foodDetails.slice(1, foodDetails.length)}
             </p>
+            {/* description */}
+            <p className="mt-2 tracking-wide text-sm text-gray-600 dark:text-gray-400">
+              <span className="font-firaSans text-xl text-[#B20000]">
+                {description.slice(0, 1)}
+              </span>{" "}
+              {description.slice(1, description.length)}
+            </p>
+
+            {/* quantity */}
+            <div className="mt-3 group flex gap-2 items-center justify-start">
+              <span className="px-3 group-hover:translate-x-1 py-1 rounded-full bg-[#613728] hover:bg-[#B20000] transition duration-100 text-white ">
+                Stock Available
+              </span>
+              <span className="text-xl py-1"> {quantity}</span>
+            </div>
           </div>
 
           <div className="mt-4">
@@ -82,7 +113,7 @@ const FoodItemDetails = () => {
                 <img
                   className="object-cover h-10 rounded-full"
                   src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60"
-                  alt="Avatar"
+                  alt={name}
                 />
                 <a
                   href="#"
@@ -90,7 +121,7 @@ const FoodItemDetails = () => {
                   tabIndex="0"
                   role="link"
                 >
-                  Jone Doe
+                  {name}
                 </a>
               </div>
               <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
