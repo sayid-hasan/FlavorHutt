@@ -1,6 +1,5 @@
 .glassBtn-container .btn {
   position: relative;
-  width: 150px;
 }
 .glassBtn-container .btn span {
   position: absolute;
@@ -47,7 +46,7 @@
 }
 @media (min-width: 768px) {
   .glassBtn-container .btn {
-    width: 200px;
+    /* width: 200px; */
   }
 }
 .glassBtn-container .btn::before {

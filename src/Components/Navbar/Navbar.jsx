@@ -5,10 +5,11 @@ import "./navbar.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlassmorphismButton from "../PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Nav = () => {
-  const loading = false;
-  const user = false;
+  const { user, loading } = useContext(AuthContext);
   const navlinks = (
     <>
       <li className="flex">

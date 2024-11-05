@@ -97,8 +97,14 @@ const FoodItemCard = ({ foodItem }) => {
             viewport={{ once: false, amount: 0.7 }}
             className="flex  justify-center  items-center mt-4 text-gray-700 dark:text-gray-200"
           >
-            <Link to={`/allFoodItems/${_id}`} className="">
-              <GlassmorphismButton text="View Details"></GlassmorphismButton>
+            <Link
+              to={`/allFoodItems/${_id}`}
+              className="w-full flex justify-center"
+            >
+              <GlassmorphismButton
+                className="h-[40px] px-2 grow flex-1"
+                text="View Details"
+              ></GlassmorphismButton>
             </Link>
           </motion.div>
         </div>
