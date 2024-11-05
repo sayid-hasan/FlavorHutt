@@ -1,7 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxios from "../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import ReactStarsRating from "react-awesome-stars-rating";
+import BtnWithICon from "../../Components/PrimaryButton/NormalBtn/BtnWithICon";
+import { FaArrowRight } from "react-icons/fa";
+import logo from "../../assets/Images/user.png";
 
 const FoodItemDetails = () => {
   const { id } = useParams();
@@ -29,7 +33,7 @@ const FoodItemDetails = () => {
     quantity,
     category,
     price,
-    addedBy: { name },
+    addedBy,
     starRating,
     foodDetails,
     origin,
@@ -56,9 +60,9 @@ const FoodItemDetails = () => {
       <Helmet>
         <title>{foodName} Details</title>
       </Helmet>
-      <div className="max-w-5xl flex items-center md:items-stretch gap-2 flex-col md:flex-row-reverse overflow-hidden bg-white/70 backdrop-blur-md rounded-lg shadow-md dark:bg-gray-800 h-full">
+      <div className="max-w-5xl flex items-center md:items-stretch gap-2 flex-col md:flex-row-reverse overflow-hidden bg-white/60  md:bg-white/70 backdrop-blur-md rounded-lg shadow-md dark:bg-gray-800 h-full">
         <img
-          className="object-cover w-full md:w-1/2 md:min-h-[400px] h-full"
+          className="object-cover w-full md:w-1/2 md:min-h-[500px] h-full"
           src={foodImg}
           alt={foodName}
         />
@@ -71,6 +75,17 @@ const FoodItemDetails = () => {
             <h2 className="font-firaSans text-2xl md:text- font-bold">
               {foodName}
             </h2>
+            {/* rating */}
+            <div className="flex justify-start items-center gap-2">
+              <ReactStarsRating
+                isEdit={false}
+                isHalf={true}
+                className="flex justify-center items-center my-2"
+                secondaryColor="#B20000"
+                primaryColor="#ff7f50"
+                count={starRating}
+              />
+            </div>
             <div className="flex mt-2 font-bold font-Courgette justify-between items-center">
               {/* origin */}
               <div className="text-base text-[#613728] tracking-widest ">
@@ -79,8 +94,15 @@ const FoodItemDetails = () => {
               </div>
               {/* prrice */}
               <div className="text-[#B20000]">
-                <span className="text-2xl">{price.toString().slice(0, 1)}</span>
-                {price.toString().slice(1, price.toString().length)} AED
+                <span className="text-2xl">
+                  {price.toString().length >= 4
+                    ? price.toString().slice(0, 2)
+                    : price.toString().slice(0, 1)}
+                </span>
+                {price.toString().length >= 4
+                  ? price.toString().slice(2, price.toString().length)
+                  : price.toString().slice(1, price.toString().length)}{" "}
+                AED
               </div>
             </div>
 
@@ -98,12 +120,30 @@ const FoodItemDetails = () => {
               {description.slice(1, description.length)}
             </p>
 
-            {/* quantity */}
-            <div className="mt-3 group flex gap-2 items-center justify-start">
-              <span className="px-3 group-hover:translate-x-1 py-1 rounded-full bg-[#613728] hover:bg-[#B20000] transition duration-100 text-white ">
-                Stock Available
-              </span>
-              <span className="text-xl py-1"> {quantity}</span>
+            <div
+              className="flex justify-between items-center my-3
+            w-full grow flex-1"
+            >
+              {/* quantity */}
+              <div className=" group flex gap-2 items-center justify-start">
+                <span className="md:px-2 lg:px-3 px-1 group-hover:translate-x-1 py-1 rounded-full bg-[#613728] md:text-base text-sm hover:bg-[#B20000] transition duration-100 text-white ">
+                  Stock Available
+                </span>
+                <span className="md:text-xl text-base py-1"> {quantity}</span>
+              </div>
+              {/* puschase Buton */}
+              <Link
+                to="/purchasePage"
+                className="flex justify-end items-stretch py-1 w-1/2 "
+              >
+                <BtnWithICon
+                  icon={<FaArrowRight />}
+                  text={"Purchase"}
+                  classname={
+                    "font-frescha tracking-wide text-base mt-0 rounded-full w-full bg-[#B20000] hover:bg-[#613728] py-1"
+                  }
+                ></BtnWithICon>
+              </Link>
             </div>
           </div>
 
@@ -112,8 +152,8 @@ const FoodItemDetails = () => {
               <div className="flex items-center">
                 <img
                   className="object-cover h-10 rounded-full"
-                  src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60"
-                  alt={name}
+                  src={logo}
+                  alt={addedBy?.name}
                 />
                 <a
                   href="#"
@@ -121,12 +161,12 @@ const FoodItemDetails = () => {
                   tabIndex="0"
                   role="link"
                 >
-                  {name}
+                  {addedBy?.name}
                 </a>
               </div>
-              <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
+              {/* <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
                 21 SEP 2015
-              </span>
+              </span> */}
             </div>
           </div>
         </div>
