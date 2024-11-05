@@ -45,9 +45,6 @@
   transform: skewX(45deg) translateX(190%);
 }
 @media (min-width: 768px) {
-  .glassBtn-container .btn {
-    /* width: 200px; */
-  }
 }
 .glassBtn-container .btn::before {
   content: "";

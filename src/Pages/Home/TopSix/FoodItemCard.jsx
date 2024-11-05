@@ -102,7 +102,7 @@ const FoodItemCard = ({ foodItem }) => {
               className="w-full flex justify-center"
             >
               <GlassmorphismButton
-                className="h-[40px] px-2 grow flex-1"
+                className="h-[40px] w-[200px]"
                 text="View Details"
               ></GlassmorphismButton>
             </Link>

@@ -135,7 +135,7 @@ const LoginPage = () => {
                   id="email"
                   {...register("email", { required: true })}
                   placeholder="Email"
-                  className="w-full px-4 py-3 rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600"
+                  className="w-full px-4 py-3 rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
                 />
               </div>
               <div className="space-y-1 text-sm">
@@ -155,7 +155,7 @@ const LoginPage = () => {
                       pattern: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
                     })}
                     placeholder="Password"
-                    className="w-full px-4 py-3 rounded-md focus:border-[#ff7f50]   "
+                    className="w-full px-4 py-3 bg-white rounded-md focus:border-[#ff7f50]   "
                   />
                   <div
                     className="absolute right-0 -translate-x-3 "
@@ -177,12 +177,12 @@ const LoginPage = () => {
               </div>
               <button
                 type="submit"
-                className="flex-1 grow flex justify-center items-center"
+                className=" flex justify-center items-center flex-1 grow w-full"
               >
                 <GlassmorphismButton
-                  containerClassName={`grow flex-1`}
+                  containerClassName={`w-full`}
                   text="Sign In"
-                  className={` md:h-[50px] w-[400px] grow flex-1 `}
+                  className={` md:h-[50px] w-full grow flex-1 `}
                 ></GlassmorphismButton>
               </button>
             </form>
