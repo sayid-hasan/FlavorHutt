@@ -2,14 +2,19 @@ import { Link, NavLink } from "react-router-dom";
 
 import logo from "../../assets/Images/user.png";
 import "./navbar.css";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlassmorphismButton from "../PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const Nav = () => {
-  const { user, loading } = useContext(AuthContext);
+  const { user, loading, logOutUser } = useContext(AuthContext);
+  const handlelogOutUser = () => {
+    logOutUser().then(
+      toast.info("Logged Out Successfully!").catch((err) => console.log(err))
+    );
+  };
   const navlinks = (
     <>
       <li className="flex">
@@ -48,14 +53,6 @@ const Nav = () => {
     </>
   );
 
-  //   const handleLogout = () => {
-  //     logoutUser()
-  //       .then(() => {
-  //         toast("logged out successfully");
-  //       })
-  //       .catch((err) => console.log(err));
-  //   };
-
   const buttonProfile = (
     <>
       {/* buttons and user profile */}
@@ -87,7 +84,9 @@ const Nav = () => {
                       </Link>
                     </li>
                     <li>
-                      <button>Log out</button>
+                      <button onClick={() => handlelogOutUser()}>
+                        Log out
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -96,9 +95,12 @@ const Nav = () => {
               <>
                 <Link
                   to="/login"
-                  className="self-center  w-full bg-transparent text-center border border-transparent"
+                  className="self-center   w-full bg-transparent text-center border border-transparent"
                 >
-                  <GlassmorphismButton text="Sign In"></GlassmorphismButton>
+                  <GlassmorphismButton
+                    className="md:w-[200px] w-[100px]"
+                    text="Sign In"
+                  ></GlassmorphismButton>
                 </Link>
               </>
             )}

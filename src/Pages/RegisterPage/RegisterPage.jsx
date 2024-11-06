@@ -1,36 +1,28 @@
-import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import bgImg from "../../assets/Images/carousol2.jpg";
 import { toast } from "react-toastify";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
-
-import Lottie from "lottie-react";
-import animationData from "../../lotties/login-page-lottie.json";
-import bgImg from "../../assets/Images/carousol1.jpg";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
+import Lottie from "lottie-react";
+import animationData from "../../lotties/reg-page.json";
 
-const LoginPage = () => {
-  const { loginUser, signInWithFacebook, signInWithGoogle, setLoading } =
-    useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const location = useLocation();
-  console.log(location);
-
-  //console.log(location);
-  // lottie options
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
+const RegisterPage = () => {
   const [showPass, setShowPass] = useState(false);
+  const {
+    setLoading,
+    user,
+    setUser,
+    createUser,
+    updateUserProfile,
+    signInWithFacebook,
+    signInWithGoogle,
+  } = useContext(AuthContext);
+
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -38,22 +30,29 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { email, password } = data;
-    // login
+    const { email, name, password, image } = data;
 
-    //login
+    // console.log(email, username, password, image);
+    const from = "/";
+    // creating user
+    createUser(email, password)
+      .then((res) => {
+        toast.success("registered successfully");
+        console.log(res.user);
 
-    loginUser(email, password)
-      .then(() => {
-        toast.success("logged in successfully");
+        updateUserProfile(name, image)
+          .then(() => {})
+          .catch((err) => console.log(err));
 
-        // redirect to location
-        navigate(location?.state || "/");
+        setUser({ ...user, displayName: name, photoURL: image });
+
+        navigate(from);
       })
       .catch(() => {
-        toast.error("incorrect email or password");
+        toast.error("user exist already");
       });
   };
+
   // social login
   const handleGoogleLogin = () => {
     signInWithGoogle()
@@ -87,15 +86,23 @@ const LoginPage = () => {
       });
   };
 
+  // lottie options
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
   useEffect(() => {
     const subscription = watch(() => {
-      //console.log(data);
+      // console.log(data);
     });
     return () => {
       subscription.unsubscribe();
     };
   }, [watch]);
-
   return (
     <div
       className={`bg-red-200  flex justify-center items-center text-white  bg-cover bg-center min-h-screen w-full rounded-lg font-frescha  max-w-7xl    `}
@@ -106,15 +113,15 @@ const LoginPage = () => {
         backgroundPosition: "center",
       }}
     >
-      {" "}
-      <div className="lg:max-w-4xl md:max-w-3xl max-w-md rounded-lg w-full md:bg-white/10 backdrop-blur-md mx-auto overflow-x-hidden font-firaSans">
-        <Helmet>
-          <title>Login</title>
-        </Helmet>
+      <Helmet>
+        <title>Register your account</title>
+      </Helmet>
+      <div className="lg:max-w-4xl md:max-w-3xl max-w-md rounded-lg w-full md:bg-white/10 backdrop-blur-md mx-auto overflow-x-hidden font-firaSans  ">
         <div className="flex  flex-col-reverse md:flex-row  md:justify-between ">
+          {" "}
           <div className="w-full my-5  md:w-1/2 p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
-            <h1 className="text-2xl md:text-4xl font-frescha text-white  font-bold text-center">
-              Log into your account
+            <h1 className="text-2xl font-font-oswald text-white font-bold text-center">
+              Sign Up for more amazing features
             </h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -122,6 +129,27 @@ const LoginPage = () => {
               action=""
               className="space-y-6"
             >
+              {/* Name */}
+              <div className="space-y-1 text-sm">
+                <label
+                  htmlFor="email"
+                  className="block dark:text-gray-600 text-white font-bold tracking-widest"
+                >
+                  Name
+                </label>
+                <input
+                  type="name"
+                  name="name"
+                  id="name"
+                  {...register("name", { required: true })}
+                  placeholder="Your Name"
+                  className="w-full text-[#938e8e] px-4 py-3 rounded-md focus:border-[#B20000] bg-white"
+                />
+                <span className="font-semibold text-white font-frescha tracking-wide">
+                  {errors.name?.type === "required" && "Name is required"}
+                </span>
+              </div>
+              {/* email */}
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="email"
@@ -135,9 +163,13 @@ const LoginPage = () => {
                   id="email"
                   {...register("email", { required: true })}
                   placeholder="Email"
-                  className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
+                  className="w-full text-[#938e8e] px-4 py-3 rounded-md focus:border-[#B20000] bg-white"
                 />
+                <span className="font-semibold text-white font-frescha tracking-wide">
+                  {errors.email?.type === "required" && "Email is required"}
+                </span>
               </div>
+              {/* password */}
               <div className="space-y-1 text-sm">
                 <label
                   htmlFor="password"
@@ -152,10 +184,10 @@ const LoginPage = () => {
                     id="password"
                     {...register("password", {
                       required: true,
-                      pattern: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                      pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s]).{6,}$/,
                     })}
                     placeholder="Password"
-                    className="w-full px-4 py-3 text-[#938e8e] bg-white rounded-md focus:border-[#ff7f50]   "
+                    className="w-full text-[#938e8e] px-4 py-3 rounded-md focus:border-[#B20000]  bg-white"
                   />
                   <div
                     className="absolute right-0 -translate-x-3 "
@@ -168,24 +200,46 @@ const LoginPage = () => {
                     )}
                   </div>
                 </div>
-                <span className="font-semibold text-red-600">
+                <span className="font-semibold text-white font-frescha tracking-wide">
                   {errors.password?.type === "required" &&
                     "Password is required"}
                   {errors.password?.type === "pattern" &&
-                    "Password must have at least one uppercase letter, one lowercase letter, and be at least 6 characters long"}
+                    "Password must have at least one uppercase letter, one special character and at least one digit, and be at least 6 characters long"}
                 </span>
               </div>
+              {/* photo URL */}
+              <div className="space-y-1 text-sm">
+                <label
+                  htmlFor="email"
+                  className="block dark:text-gray-600 text-white font-bold tracking-widest"
+                >
+                  Photo URL
+                </label>
+                <input
+                  type="text"
+                  name="image"
+                  id="image"
+                  {...register("image", { required: true })}
+                  placeholder="Image URL"
+                  className="w-full text-[#938e8e] px-4 py-3 rounded-md focus:border-[#B20000] bg-white"
+                />
+                <span className="font-semibold text-white font-frescha tracking-wide">
+                  {errors.image?.type === "required" && "Photo URL is required"}
+                </span>
+              </div>
+
               <button
                 type="submit"
                 className=" flex justify-center items-center flex-1 grow w-full"
               >
                 <GlassmorphismButton
                   containerClassName={`w-full`}
-                  text="Sign In"
+                  text="Get Registered"
                   className={` md:h-[50px] w-full grow flex-1 `}
                 ></GlassmorphismButton>
               </button>
             </form>
+
             <div className="flex items-center pt-4 space-x-1">
               <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
               <div className="">
@@ -247,24 +301,26 @@ const LoginPage = () => {
                 </div>
               </button>
             </div>
-            <p className="text-xs text-center sm:px-6 text-white">
-              Don&#39;t have an account?
+
+            <p className="text-xs text-center sm:px-6 dark:text-gray-600">
+              Already have an account?
               <Link
-                to="/register"
-                className="underline dark:text-gray-800 mx-3 text-[#ff7f50] font-semibold"
+                to="/login"
+                className="underline dark:text-gray-800 mx-3 text-[#B20000] font-semibold"
               >
-                Sign up
+                Sign in
               </Link>
             </p>
           </div>
           <div className="md:w-1/2 w-full">
-            <Lottie options={defaultOptions} height={400} width={400}></Lottie>
+            <Lottie options={defaultOptions} height={400} width={4000}></Lottie>
           </div>
-          {/* <ToastContainer></ToastContainer> */}
         </div>
+
+        {/* <ToastContainer></ToastContainer> */}
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
