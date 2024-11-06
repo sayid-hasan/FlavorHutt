@@ -8,7 +8,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
 import Lottie from "lottie-react";
-import animationData from "../../lotties/reg-page.json";
+import animationData from "../../lotties/reg-page";
 
 const RegisterPage = () => {
   const [showPass, setShowPass] = useState(false);
@@ -117,9 +117,9 @@ const RegisterPage = () => {
         <title>Register your account</title>
       </Helmet>
       <div className="lg:max-w-4xl md:max-w-3xl max-w-md rounded-lg w-full md:bg-white/10 backdrop-blur-md mx-auto overflow-x-hidden font-firaSans  ">
-        <div className="flex  flex-col-reverse md:flex-row  md:justify-between ">
+        <div className="flex w-full gap-10 md:p-5 p-2 flex-col-reverse md:flex-row  md:justify- items-stretch ">
           {" "}
-          <div className="w-full my-5  md:w-1/2 p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
+          <div className="w-full my-5  md:w-1/2  space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
             <h1 className="text-2xl font-font-oswald text-white font-bold text-center">
               Sign Up for more amazing features
             </h1>
@@ -312,8 +312,15 @@ const RegisterPage = () => {
               </Link>
             </p>
           </div>
-          <div className="md:w-1/2 w-full">
-            <Lottie options={defaultOptions} height={400} width={4000}></Lottie>
+          <div className="md:w-1/2 w-full h-full md:mt-[8rem] ">
+            <Lottie
+              loop
+              autoPlay
+              animationData={animationData}
+              options={defaultOptions}
+              height={400}
+              width={4000}
+            ></Lottie>
           </div>
         </div>
 

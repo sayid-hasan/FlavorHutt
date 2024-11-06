@@ -257,8 +257,13 @@ const LoginPage = () => {
               </Link>
             </p>
           </div>
-          <div className="md:w-1/2 w-full">
-            <Lottie options={defaultOptions} height={400} width={400}></Lottie>
+          <div className="md:w-1/2 w-full md:mt-10">
+            <Lottie
+              animationData={animationData}
+              options={defaultOptions}
+              height={400}
+              width={400}
+            ></Lottie>
           </div>
           {/* <ToastContainer></ToastContainer> */}
         </div>
