@@ -3,14 +3,19 @@ import bgImg from "../../assets/Images/PurchasePageBg.jpg";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useAxios from "../../Hooks/useAxios";
+
+import { toast } from "react-toastify";
 const PurchasePage = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
-  const { foodName, price, stock } = location.state;
+  const { foodName, price, stock, addedBy } = location.state;
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(price);
+  const axiosNonSecure = useAxios();
+  const navigate = useNavigate();
 
   // change if quantity has changed
 
@@ -19,6 +24,9 @@ const PurchasePage = () => {
   //   console.log(`purchase page ${stock}`);
   //   console.log(`purchase page ${user?.displayName}`);
   console.log(`purchase page ${totalPrice}`);
+
+  // challenge requirements
+
   // Update total price whenever quantity changes
 
   const handleQuantityChange = (e) => {
@@ -28,7 +36,7 @@ const PurchasePage = () => {
   };
 
   const { register, handleSubmit, watch } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { food, quantity, price, buyerName, buyerEmail } = data;
     console.log(
       `purchase page`,
@@ -39,12 +47,37 @@ const PurchasePage = () => {
       buyerEmail,
       totalPrice
     );
+    // Create order in database or other backend service
+    const sellDetails = {
+      food,
+      quantity: parseInt(quantity),
+      price: parseInt(price),
+
+      buyerName,
+      buyerEmail,
+      totalPrice: parseInt(totalPrice),
+      addedBy,
+    };
+    // post data on database or other backend service
+    const res = await axiosNonSecure.post("/purchaseHistory", sellDetails);
+    if (res.data?.modifiedCount > 0) {
+      toast.success("thanks for your order");
+      setQuantity(1); // Reset quantity to 1
+      setTotalPrice(price); // Reset total price to price per unit
+      navigate("/"); // Navigate to Home
+    } else {
+      toast.error("Failed to create order");
+    }
   };
+
   useEffect(() => {
     // Set up a subscription to watch 'quantity' field
     const subscription = watch((value) => {
       const quantity = value?.quantity || 1; // Default to 1 if quantity is undefined
       setTotalPrice(quantity * price); // Calculate and update total price
+      if (stock === 0) {
+        toast.error("Out of stock");
+      }
     });
 
     // Cleanup the subscription
@@ -131,7 +164,7 @@ const PurchasePage = () => {
                     type="number"
                     onChange={handleQuantityChange}
                     placeholder={quantity}
-                    max={stock || 20}
+                    max={stock}
                     min={1}
                     name="quantity"
                     id="quantity"
@@ -188,6 +221,7 @@ const PurchasePage = () => {
 
               <button
                 type="submit"
+                disabled={stock === 0 || addedBy?.email === user.email}
                 className=" flex justify-center items-center flex-1 grow w-full"
               >
                 <GlassmorphismButton
