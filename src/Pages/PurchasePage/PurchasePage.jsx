@@ -82,7 +82,7 @@ const PurchasePage = () => {
 
     // Cleanup the subscription
     return () => subscription.unsubscribe();
-  }, [watch, price]); // Only re-run if 'watch' or 'pricePerUnit' change
+  }, [watch, price, stock]); // Only re-run if 'watch' or 'pricePerUnit' change
 
   return (
     <div

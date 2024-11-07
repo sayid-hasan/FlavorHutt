@@ -6,8 +6,13 @@ import { motion } from "framer-motion";
 import fadeIn from "../../../Utilities/varient";
 import AllFoodCard from "./AllFoodCard";
 
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
 const AllFoodPage = () => {
   const axiosNonSecure = useAxios();
+  const [searchTerm, setSearchTerm] = useState("");
+
   // tanstack
   const {
     data: allFoods = [],
@@ -16,19 +21,36 @@ const AllFoodPage = () => {
     error,
   } = useQuery({
     queryFn: () => getData(),
-    queryKey: ["AlllFoods"],
+    queryKey: ["AlllFoods", searchTerm],
   });
 
   // data to fetch
   const getData = async () => {
-    const { data } = await axiosNonSecure.get("/allFoods");
+    const { data } = await axiosNonSecure.get(`/allFoods?query=${searchTerm}`);
     return data;
   };
+  const { register, handleSubmit, watch } = useForm();
+  // handle seach data
+  const onSubmit = async (data) => {
+    const { search } = data;
+    console.log(search);
+    setSearchTerm(search);
+  };
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      //console.log(data);
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [watch]);
   console.log(allFoods);
   if (isError || error) {
     console.log(error);
   }
   if (isLoading) return <p>wait</p>;
+
   return (
     <div>
       {/*helment */}
@@ -66,6 +88,34 @@ const AllFoodPage = () => {
               Explore our vibrant selection of mouthwatering dishes, crafted to
               delight your senses and ignite your passion for flavor
             </motion.p>
+            {/* searchbar */}
+            <form onSubmit={handleSubmit(onSubmit)} noValidate="" action="">
+              <label className="input input-bordered flex items-center gap-2 max-w-xs justify-center mx-auto">
+                <input
+                  type="text"
+                  name="search"
+                  {...register("search")}
+                  className="grow"
+                  placeholder="Search"
+                />
+                <button type="submit">
+                  {" "}
+                  {/* search svg */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    className="h-4 w-4 opacity-70"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </label>
+            </form>
           </div>
           <div className="grid lg:mt-16 mt-10 mb-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {allFoods.map(
