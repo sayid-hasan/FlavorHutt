@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
-import fadeIn from "../../../Utilities/varient";
 import { motion } from "framer-motion";
+import fadeIn from "../../../Utilities/varient";
+import { Link } from "react-router-dom";
 import GlassmorphismButton from "../../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
-const FoodItemCard = ({ foodItem }) => {
+
+const AllFoodCard = ({ foodItem }) => {
   // console.log(user);
-  const { foodImg, foodName, category, price, _id, description } = foodItem;
-  console.log(`food item card`, _id);
+  const { foodImg, foodName, category, price, stock, _id, description } =
+    foodItem;
+  // console.log(_id);
   // sending data on post collection with tanstack
 
   //   const { mutateAsync } = useMutation({
@@ -113,4 +115,4 @@ const FoodItemCard = ({ foodItem }) => {
   );
 };
 
-export default FoodItemCard;
+export default AllFoodCard;

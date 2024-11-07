@@ -4,6 +4,8 @@ import Home from "../Pages/Home/Home/Home";
 import FoodItemDetails from "../Pages/FoodItemDetails/FoodItemDetails";
 import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
+import AllFoodPage from "../Pages/AllFoodPage/AllFoodPage/AllFoodPage";
+import PurchasePage from "../Pages/PurchasePage/PurchasePage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +21,10 @@ export const router = createBrowserRouter([
         path: "/allFoodItems/:id",
         element: <FoodItemDetails></FoodItemDetails>,
       },
+      {
+        path: "/allFoods",
+        element: <AllFoodPage></AllFoodPage>,
+      },
 
       // Need to be in protected route withh Private route
       {
@@ -28,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterPage></RegisterPage>,
+      },
+      {
+        path: "/purchase",
+        element: <PurchasePage></PurchasePage>,
       },
     ],
   },

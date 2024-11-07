@@ -11,6 +11,8 @@ const FoodItemDetails = () => {
   const { id } = useParams();
   const axios = useAxios();
 
+  console.log("food item  details: " + id);
+
   // tanstack for getting single data
   const {
     data: foodItem = [],
@@ -19,7 +21,7 @@ const FoodItemDetails = () => {
     error,
   } = useQuery({
     queryFn: () => getData(),
-    queryKey: ["foodItem"],
+    queryKey: ["foodItemDetails"],
   });
   const getData = async () => {
     const { data } = await axios.get(`/allFoods/${id}`);
@@ -30,7 +32,7 @@ const FoodItemDetails = () => {
     foodName,
     foodImg,
     description,
-    quantity,
+    stock,
     category,
     price,
     addedBy,
@@ -124,16 +126,17 @@ const FoodItemDetails = () => {
               className="flex justify-between items-center my-3
             w-full grow flex-1"
             >
-              {/* quantity */}
+              {/* stock */}
               <div className=" group flex gap-2 items-center justify-start">
                 <span className="md:px-2 lg:px-3 px-1 group-hover:translate-x-1 py-1 rounded-full bg-[#613728] md:text-base text-sm hover:bg-[#B20000] transition duration-100 text-white ">
                   Stock Available
                 </span>
-                <span className="md:text-xl text-base py-1"> {quantity}</span>
+                <span className="md:text-xl text-base py-1"> {stock}</span>
               </div>
               {/* puschase Buton */}
               <Link
-                to="/purchasePage"
+                to="/purchase"
+                state={{ foodName: foodName, price: price, stock: stock }}
                 className="flex justify-end items-stretch py-1 w-1/2 "
               >
                 <BtnWithICon
