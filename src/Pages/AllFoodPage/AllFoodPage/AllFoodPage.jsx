@@ -59,7 +59,7 @@ const AllFoodPage = () => {
       </Helmet>
       <div>
         <ParallaxBg
-          className={`text-center text-3xl md:text-3xl lg:text-5xl tracking-[2px] text-[#ff7f50] font-frescha flex justify-center font-black items-center rounded-md md:min-h-[500px] 
+          className={`bg-parallax1 text-center text-3xl md:text-3xl lg:text-5xl tracking-[2px] text-white font-frescha flex justify-center font-black items-center rounded-md md:min-h-[500px] 
             
             `}
         >

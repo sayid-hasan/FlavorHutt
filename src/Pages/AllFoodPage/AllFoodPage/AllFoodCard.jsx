@@ -5,8 +5,7 @@ import GlassmorphismButton from "../../../Components/PrimaryButton/Glassmorphism
 
 const AllFoodCard = ({ foodItem }) => {
   // console.log(user);
-  const { foodImg, foodName, category, price, stock, _id, description } =
-    foodItem;
+  const { foodImg, foodName, category, price, _id, description } = foodItem;
   // console.log(_id);
   // sending data on post collection with tanstack
 

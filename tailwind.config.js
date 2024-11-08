@@ -11,7 +11,8 @@ export default withMT({
   theme: {
     extend: {
       backgroundImage: {
-        parallax: 'url("https://i.imgur.com/SmTEnXi.jpg")',
+        parallax1: 'url("https://i.imgur.com/SmTEnXi.jpg")',
+        parallax2: 'url("https://i.imgur.com/jcnjlrB.jpg")',
       },
     },
     fontFamily: {

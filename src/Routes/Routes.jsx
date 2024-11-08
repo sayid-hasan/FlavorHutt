@@ -6,6 +6,7 @@ import LoginPage from "../Pages/LoginPage/LoginPage";
 import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import AllFoodPage from "../Pages/AllFoodPage/AllFoodPage/AllFoodPage";
 import PurchasePage from "../Pages/PurchasePage/PurchasePage";
+import GalleryPage from "../Pages/GalleryPage/GalleryPage";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "/allFoods",
         element: <AllFoodPage></AllFoodPage>,
+      },
+      {
+        path: "/gallery",
+        element: <GalleryPage></GalleryPage>,
       },
 
       // Need to be in protected route withh Private route
