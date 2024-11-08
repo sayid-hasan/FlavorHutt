@@ -5,12 +5,18 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const GalleryPage = () => {
   const axiosNonSecure = useAxios();
-  const [isOpen, setIsOpen] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isOpen, setIsOpen] = useState(location?.state);
   // tanstack
   const {
     data: feedBacks = [],
@@ -29,7 +35,13 @@ const GalleryPage = () => {
 
   // modal loading
   const handleModal = () => {
-    setIsOpen(true);
+    if (user) {
+      setIsOpen(true);
+    } else {
+      navigate("/login", {
+        state: { from: location.pathname, isOpen: true },
+      });
+    }
   };
   console.log("gallery page loaded", feedBacks);
   if (isError || error) {

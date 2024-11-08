@@ -7,6 +7,7 @@ import RegisterPage from "../Pages/RegisterPage/RegisterPage";
 import AllFoodPage from "../Pages/AllFoodPage/AllFoodPage/AllFoodPage";
 import PurchasePage from "../Pages/PurchasePage/PurchasePage";
 import GalleryPage from "../Pages/GalleryPage/GalleryPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/purchase",
-        element: <PurchasePage></PurchasePage>,
+        element: (
+          <PrivateRoute>
+            <PurchasePage></PurchasePage>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 const PurchasePage = () => {
   const { user } = useContext(AuthContext);
   const location = useLocation();
+
   const { foodName, price, stock, addedBy } = location.state;
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(price);

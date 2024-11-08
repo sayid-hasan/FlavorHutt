@@ -18,7 +18,11 @@ const LoginPage = () => {
 
   const location = useLocation();
   console.log(location);
-
+  // Extract 'from' and 'foodDetails' from the state
+  const { from, foodDetails } = location.state || {};
+  // gallery state
+  const isOpen = location.state?.isOpen || false;
+  const redirectTo = from || "/";
   //console.log(location);
   // lottie options
   const defaultOptions = {
@@ -48,7 +52,10 @@ const LoginPage = () => {
         toast.success("logged in successfully");
 
         // redirect to location
-        navigate(location?.state || "/");
+        if (location.state?.from === "/gallery") {
+          navigate(redirectTo, { state: isOpen, replace: true });
+        }
+        navigate(redirectTo, { state: foodDetails, replace: true });
       })
       .catch(() => {
         toast.error("incorrect email or password");
@@ -61,7 +68,7 @@ const LoginPage = () => {
         //const user = result.user;
         toast.success(`welcome back ${result.user.displayName}`);
         // redirect to location
-        navigate(location?.state || "/");
+        navigate(redirectTo);
         //console.log(user);
       })
       .catch((error) => {
@@ -77,7 +84,7 @@ const LoginPage = () => {
         //const user = result.user;
         toast.success(`welcome back ${result.user.displayName}`);
         // redirect to location
-        navigate(location?.state || "/");
+        navigate(redirectTo);
         //console.log(user);
       })
       .catch((error) => {
