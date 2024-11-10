@@ -1,0 +1,24 @@
+/* Define the initial state of the overlay */
+.overlay {
+  width: 0;
+  overflow: hidden;
+  transition: width 2s ease-in-out;
+  animation: overlayExpand 1s ease-in-out;
+}
+
+/* Add the hover effect for the parent element */
+.parent:hover .overlay {
+  width: 90%;
+}
+
+/* Optional: Define custom keyframes (if you want to add more complex animations) */
+@keyframes overlayExpand {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 90%;
+  }
+}
+
+/* This animation is attached above, for on hover state */

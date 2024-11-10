@@ -9,7 +9,7 @@ import { useContext, useState } from "react";
 import FeedbackModal from "./FeedbackModal";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import "./gallery.css";
 const GalleryPage = () => {
   const axiosNonSecure = useAxios();
 
@@ -91,7 +91,7 @@ const GalleryPage = () => {
             (feedback) => (
               <div
                 key={feedback._id}
-                className="relative group transition-all w-full duration-1000 gallery "
+                className="relative parent group transition-all w-full duration-1000 gallery "
               >
                 <img
                   src={feedback?.imageUrl}
@@ -101,12 +101,14 @@ const GalleryPage = () => {
 
                 {/* overlay */}
                 <div
-                  className="absolute hidden gallery-overlay group-hover:flex group-hover:-translate-y-1/2 
+                  className="absolute overlay font-frescha hidden gallery-overlay group-hover:flex group-hover:-translate-y-1/2 
                   group-hover:transition-all group-hover:duration-1000
                 transition-all duration-1000   top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/4 backdrop-blur-[7px] bg-white/20 w-[90%] h-[90%] rounded-2xl border-white border-[1px]   text-white flex-col justify-center items-center "
                 >
-                  <p className="text-xs w-3/4 mx-auto ">{feedback?.feedback}</p>
-                  <p className="text-xs font-body text-center ">
+                  <p className="text-xs md:text-sm text-center w-3/4 mx-auto ">
+                    {feedback?.feedback}
+                  </p>
+                  <p className="text-xs font-firaSans font-bold text-center ">
                     {feedback?.userName}
                   </p>
                 </div>
