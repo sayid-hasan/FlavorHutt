@@ -81,6 +81,10 @@ const Nav = () => {
                         {user?.displayName || "user Name not found"}
                       </Link>
                     </li>
+                    {/* add item */}
+                    <li>
+                      <Link to="/addItem">{`Add Item`}</Link>
+                    </li>
                     <li>
                       <button onClick={() => handlelogOutUser()}>
                         Log out

@@ -9,6 +9,7 @@ import PurchasePage from "../Pages/PurchasePage/PurchasePage";
 import GalleryPage from "../Pages/GalleryPage/GalleryPage";
 import PrivateRoute from "./PrivateRoute";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AddItemPage from "../Pages/AddItemPage/AddItemPage";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,11 @@ export const router = createBrowserRouter([
             <PurchasePage></PurchasePage>
           </PrivateRoute>
         ),
+      },
+      // PROFILE PAGE
+      {
+        path: "/addItem",
+        element: <AddItemPage></AddItemPage>,
       },
     ],
   },
