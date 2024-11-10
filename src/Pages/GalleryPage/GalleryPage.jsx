@@ -10,6 +10,7 @@ import FeedbackModal from "./FeedbackModal";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./gallery.css";
+import GalleryPageSkeleton from "./GalleryPageSkeleton";
 const GalleryPage = () => {
   const axiosNonSecure = useAxios();
 
@@ -47,7 +48,7 @@ const GalleryPage = () => {
   if (isError || error) {
     console.log(error);
   }
-  if (isLoading) return <p>wait</p>;
+  if (isLoading) return <GalleryPageSkeleton></GalleryPageSkeleton>;
   return (
     <div>
       <Helmet>
