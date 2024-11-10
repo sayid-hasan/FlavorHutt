@@ -6,9 +6,11 @@ import FoodItemCard from "./FoodItemCard";
 import BtnWithICon from "../../../Components/PrimaryButton/NormalBtn/BtnWithICon";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import FoodCardSekeloton from "./FoodCardSekeloton";
 
 const TopSellItems = () => {
   const axiosNonSecure = useAxios();
+
   // tanstack
   const {
     data: topFoodItems = [],
@@ -28,7 +30,17 @@ const TopSellItems = () => {
   if (isError || error) {
     console.log(error);
   }
-  if (isLoading) return <p>wait</p>;
+  if (isLoading)
+    return (
+      <div className="grid lg:mt-16 mt-10 mb-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <FoodCardSekeloton></FoodCardSekeloton>
+        <FoodCardSekeloton></FoodCardSekeloton>
+        <FoodCardSekeloton></FoodCardSekeloton>
+        <FoodCardSekeloton></FoodCardSekeloton>
+        <FoodCardSekeloton></FoodCardSekeloton>
+        <FoodCardSekeloton></FoodCardSekeloton>
+      </div>
+    );
   return (
     <div className="mx-auto">
       <div className="text-center space-y-2">

@@ -6,6 +6,7 @@ import ReactStarsRating from "react-awesome-stars-rating";
 import BtnWithICon from "../../Components/PrimaryButton/NormalBtn/BtnWithICon";
 import { FaArrowRight } from "react-icons/fa";
 import logo from "../../assets/Images/user.png";
+import FoodDetailsSkeleton from "./FoodDetailsSkeleton";
 
 const FoodItemDetails = () => {
   const { id } = useParams();
@@ -47,7 +48,7 @@ const FoodItemDetails = () => {
     console.log(error);
   }
   if (isLoading) {
-    return <>wait</>;
+    return <FoodDetailsSkeleton></FoodDetailsSkeleton>;
   }
   return (
     <div

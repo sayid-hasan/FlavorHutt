@@ -6,6 +6,7 @@ import ReviewCard from "./ReviewCard";
 
 import { useRef } from "react";
 import ArrowBtn from "../../../Components/PrimaryButton/ArrowBtn/ArrowBtn";
+import ReviewSkeleton from "./ReviewSkeleton";
 
 const Carousol = () => {
   const axiosNonSecure = useAxios();
@@ -65,7 +66,7 @@ const Carousol = () => {
     console.log(error);
   }
   console.log(topReviews);
-  if (isLoading) return <p>wait</p>;
+  if (isLoading) return <ReviewSkeleton></ReviewSkeleton>;
   return (
     <div className="overflow-hidden my-8">
       <Swiper ref={swiperRef} {...params}>

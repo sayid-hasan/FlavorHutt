@@ -9,6 +9,8 @@ import AllFoodCard from "./AllFoodCard";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
+import AllFoodSkeleton from "./AllFoodSkeleton";
+
 const AllFoodPage = () => {
   const axiosNonSecure = useAxios();
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,7 +51,7 @@ const AllFoodPage = () => {
   if (isError || error) {
     console.log(error);
   }
-  if (isLoading) return <p>wait</p>;
+  if (isLoading) return <AllFoodSkeleton></AllFoodSkeleton>;
 
   return (
     <div>
