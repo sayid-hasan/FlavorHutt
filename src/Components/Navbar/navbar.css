@@ -1,9 +1,53 @@
-.menu a.active {
-  background: white !important;
-  color: #ff7f50 !important;
-  border-bottom-width: 4px !important;
-  border-color: #ff7f50;
+/* General link styles */
+.menu ul li {
+  appearance: none !important;
+  background: transparent !important;
 }
+.menu a {
+  position: relative;
+
+  transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect */
 .menu a:hover {
+  color: #b20000; /* Customize this hover color */
   background-color: white;
+}
+
+/* Active link styles */
+.menu a.active {
+  color: #ff7f50 !important;
+  outline: none;
+  background: transparent !important;
+  appearance: none !important;
+}
+
+/* Add the underline effect using ::before */
+.menu a::before {
+  content: "";
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ff7f50;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Show the underline when the link is active */
+.menu a.active::before {
+  width: 100%;
+  animation: makeAnimation 1s ease-in-out forwards;
+}
+
+/* Animation for the underline */
+@keyframes makeAnimation {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
 }

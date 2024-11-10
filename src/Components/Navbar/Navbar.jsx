@@ -17,12 +17,12 @@ const Nav = () => {
   };
   const navlinks = (
     <>
-      <li className="flex">
+      <li className="flex !focus:outline-none !focus:ring-0 !active:bg-transparent">
         {" "}
         <NavLink
           to="/"
           className={`   
-          flex items-center px-4 rounded-none pt-4 uppercase text-base text-[#3a3a3a] duration-75  `}
+          flex items-center px-4 rounded-none pt-4 uppercase text-base text-[#3a3a3a] duration-75 !focus:outline-none !focus:ring-0 !active:bg-transparent `}
         >
           Home
         </NavLink>
@@ -43,9 +43,7 @@ const Nav = () => {
         {" "}
         <NavLink
           to="/gallery"
-          className={` ${({ isActive }) => {
-            console.log(isActive);
-          }}flex items-center px-4 rounded-none duration-75 pt-4 uppercase text-base text-[#3a3a3a] `}
+          className={` flex items-center px-4 rounded-none duration-75 pt-4 uppercase text-base text-[#3a3a3a] `}
         >
           Gallery
         </NavLink>
