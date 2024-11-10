@@ -4,12 +4,43 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { useForm } from "react-hook-form";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
+import { useMutation } from "@tanstack/react-query";
+import useAxios from "../../Hooks/useAxios";
+import { toast } from "react-toastify";
 
 const AddItemPage = () => {
   const { user } = useContext(AuthContext);
+  const axiosNonSecure = useAxios();
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ foodData }) => {
+      const { data } = await axiosNonSecure.post("/allFoods", foodData);
+      console.log("inside use mutation in food add page", data);
+    },
+    onSuccess: () => {
+      toast.success("Food added successfully");
+    },
+    onError: (error) => {
+      toast.error("Failed to add food", error);
+    },
+  });
+
   const { register, handleSubmit, watch } = useForm();
   const onSubmit = async (data) => {
-    console.log(data);
+    const { foodName, foodImg, category, stock, price, origin, description } =
+      data;
+    const foodData = {
+      foodName,
+      foodImg,
+      category,
+      stock: parseFloat(stock),
+      price: parseFloat(price),
+      origin,
+      description,
+      addedBy: { name: user?.displayName, email: user?.email },
+    };
+    console.log("data that will be sent to browser", foodData);
+    //   data to send to server
+    mutateAsync({ foodData });
   };
 
   useEffect(() => {
@@ -21,7 +52,7 @@ const AddItemPage = () => {
 
     // Cleanup the subscription
     return () => subscription.unsubscribe();
-  }, []); // Only re-run if 'watch' or 'pricePerUnit' change
+  }, [watch]); // Only re-run if 'watch' or 'pricePerUnit' change
 
   return (
     <div
@@ -41,7 +72,7 @@ const AddItemPage = () => {
         <div className="flex  flex-col ">
           <div className="w-full my-5 grow   p-8 space-y-3 rounded-xl dark:bg-gray-50 dark:text-gray-800">
             <h1 className="text-2xl md:text-4xl font-frescha text-white  font-bold text-center">
-              Please confirm your order
+              Please tell us about your dish
             </h1>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -49,50 +80,51 @@ const AddItemPage = () => {
               action=""
               className="space-y-6"
             >
-              {/* first row */}
-              <div className="flex items-center justify-between gap-3">
+              {/* first row FOODNAME AND FOODIMG */}
+              <div className="flex md:flex-row flex-col items-center justify-between gap-3">
                 {/* foodName */}
-                <div className="space-y-1 grow w-1/2 text-sm">
+                <div className="space-y-1 grow md:w-1/2 w-full text-sm">
                   <label
-                    htmlFor="food"
+                    htmlFor="foodName"
                     className="block dark:text-gray-600 text-white font-bold tracking-widest"
                   >
                     Food
                   </label>
                   <input
                     type="text"
-                    name="food"
-                    id="food"
-                    {...register("food", {
+                    name="foodName"
+                    id="foodName"
+                    {...register("foodName", {
                       required: true,
-                      readOnly: true,
                     })}
+                    placeholder="Food Name"
                     className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
                   />
                 </div>
-                {/* price */}
-                <div className="space-y-1  w-1/2 grow text-sm">
+                {/* foodImg */}
+                <div className="space-y-1  md:w-1/2 w-full grow text-sm">
                   <label
-                    htmlFor="food"
+                    htmlFor="foodImg"
                     className="block dark:text-gray-600 text-white font-bold tracking-widest"
                   >
-                    AED
+                    image
                   </label>
                   <input
                     type="text"
-                    name="price"
-                    id="price"
-                    {...register("price", { required: true, readOnly: true })}
+                    name="foodImg"
+                    id="foodImg"
+                    {...register("foodImg", { required: true })}
+                    placeholder="https://yourDishImage.com"
                     className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
                   />
                 </div>
               </div>
-              {/* 2nd row */}
-              <div className="flex items-center justify-between gap-3">
-                {/* quantity */}
-                <div className="space-y-1 w-1/2 grow text-sm">
+              {/* 2nd row categopry and stock */}
+              <div className="flex md:flex-row flex-col items-center justify-between gap-3">
+                {/* quantity / stock*/}
+                <div className="space-y-1 md:w-1/2 w-full grow text-sm">
                   <label
-                    htmlFor="quantity"
+                    htmlFor="stock"
                     className="block dark:text-gray-600 text-white font-bold tracking-widest"
                   >
                     quantity
@@ -100,55 +132,95 @@ const AddItemPage = () => {
                   <input
                     type="number"
                     min={1}
-                    name="quantity"
-                    id="quantity"
-                    {...register("quantity", {
+                    name="stock"
+                    id="stock"
+                    {...register("stock", {
                       required: true,
                     })}
+                    placeholder="please enter quantity"
                     className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
                   />
                 </div>
-                {/* Buyer name */}
-                <div className="space-y-1 w-1/2  grow text-sm">
+                {/* categrpoy */}
+                <div className="space-y-1 md:w-1/2 w-full  grow text-sm">
                   <label
-                    htmlFor="buyerName"
+                    htmlFor="category"
                     className="block dark:text-gray-600 text-white font-bold tracking-widest"
                   >
-                    Buyer
+                    Category
                   </label>
                   <input
                     type="text"
-                    name="buyerName"
-                    id="buyerName"
-                    {...register("buyerName", {
+                    name="category"
+                    id="category"
+                    {...register("category", {
                       required: true,
-                      readOnly: true,
                     })}
-                    value={user?.displayName}
+                    placeholder="please define a category"
                     className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
                   />
                 </div>
               </div>
-              {/* 3rd row */}
-              <div className="flex items-center justify-between gap-3">
-                {/* Buyer name */}
-                <div className="space-y-1 w-1/2  grow text-sm">
+              {/* 3rd row price and origin */}
+              <div className="flex md:flex-row flex-col items-center justify-between gap-3">
+                {/* price */}
+                <div className="space-y-1 md:w-1/2 w-full  grow text-sm">
                   <label
-                    htmlFor="buyerEmail"
+                    htmlFor="price"
                     className="block dark:text-gray-600 text-white font-bold tracking-widest"
                   >
-                    Email
+                    Price
                   </label>
                   <input
-                    type="email"
-                    name="buyerEmail"
-                    id="buyerEmail"
-                    {...register("buyerEmail", {
+                    type="text"
+                    name="price"
+                    id="price"
+                    {...register("price", {
                       required: true,
-                      readOnly: true,
                     })}
-                    value={user?.email}
+                    placeholder="please enter price"
                     className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
+                  />
+                </div>
+                {/* origin */}
+                <div className="space-y-1 md:w-1/2 w-full  grow text-sm">
+                  <label
+                    htmlFor="origin"
+                    className="block dark:text-gray-600 text-white font-bold tracking-widest"
+                  >
+                    Origin
+                  </label>
+                  <input
+                    type="text"
+                    name="origin"
+                    id="origin"
+                    {...register("origin", {
+                      required: true,
+                    })}
+                    placeholder="Mention where it originated from"
+                    className="w-full px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
+                  />
+                </div>
+              </div>
+              {/* 4rd row description */}
+              <div className="flex md:flex-row flex-col items-start justify-between gap-3">
+                {/* description */}
+                <div className="space-y-1 md:w-1/2 w-full  grow text-sm">
+                  <label
+                    htmlFor="description"
+                    className="block dark:text-gray-600 text-white font-bold tracking-widest"
+                  >
+                    description
+                  </label>
+                  <input
+                    type="text"
+                    name="description"
+                    id="description"
+                    {...register("description", {
+                      required: true,
+                    })}
+                    placeholder="tell people about your dish"
+                    className="w-full min-h-[100px] px-4 py-3 text-[#938e8e] rounded-md focus:border-[#ff7f50] dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800 focus:dark:border-violet-600 bg-white"
                   />
                 </div>
               </div>
