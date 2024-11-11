@@ -85,6 +85,10 @@ const Nav = () => {
                     <li>
                       <Link to="/addItem">{`Add Item`}</Link>
                     </li>
+                    {/* added foods */}
+                    <li>
+                      <Link to="/myAddedFoods">{`My Added Foods`}</Link>
+                    </li>
                     <li>
                       <button onClick={() => handlelogOutUser()}>
                         Log out

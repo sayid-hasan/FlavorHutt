@@ -12,11 +12,12 @@ import bgImg from "../../assets/Images/carousol1.jpg";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
 
 const LoginPage = () => {
-  const { loginUser, signInWithFacebook, signInWithGoogle, setLoading } =
+  const { user, loginUser, signInWithFacebook, signInWithGoogle, setLoading } =
     useContext(AuthContext);
   const navigate = useNavigate();
-
   const location = useLocation();
+  const redirectPath = location.state?.from;
+
   console.log(location);
   // Extract 'from' and 'foodDetails' from the state
   const { from, foodDetails } = location.state || {};
@@ -104,7 +105,12 @@ const LoginPage = () => {
       subscription.unsubscribe();
     };
   }, [watch]);
-
+  // If user is already logged in, redirect them
+  useEffect(() => {
+    if (user) {
+      navigate(redirectPath, { replace: true });
+    }
+  }, [user, navigate, redirectPath]);
   return (
     <div
       className={`bg-red-200  flex justify-center items-center text-white  bg-cover bg-center min-h-screen w-full rounded-lg font-frescha  max-w-7xl    `}
