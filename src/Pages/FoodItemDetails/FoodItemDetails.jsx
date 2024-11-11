@@ -25,7 +25,7 @@ const FoodItemDetails = () => {
     queryKey: ["foodItemDetails"],
   });
   const getData = async () => {
-    const { data } = await axios.get(`/allFoods/${id}`);
+    const { data } = await axios.get(`/allFoodItems/${id}`);
     return data;
   };
   // destructure items from foodItem

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosNonSecure = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://flavorhuttserver.vercel.app",
 });
 const useAxios = () => {
   return axiosNonSecure;

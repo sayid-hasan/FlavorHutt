@@ -18,7 +18,7 @@ export default withMT({
     fontFamily: {
       firaSans: `"Fira Sans", sans-serif`,
       frescha: ` "Fresca", sans-serif;`,
-      Courgette: ` ""Courgette", cursive`,
+      Courgette: ` "Courgette", cursive`,
     },
   },
   plugins: [require("daisyui")],
