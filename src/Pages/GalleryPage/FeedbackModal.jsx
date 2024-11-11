@@ -3,9 +3,26 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
+import useAxios from "../../Hooks/useAxios";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const FeedbackModal = ({ setIsOpen }) => {
   const { user } = useContext(AuthContext);
+  const axiosNonSecure = useAxios();
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ feedbackData }) => {
+      const { data } = await axiosNonSecure.post("/feedback", feedbackData);
+      console.log("inside use mutation in feedback gallery modal", data);
+    },
+    onSuccess: () => {
+      toast.success("Thanks for your feedback");
+      setIsOpen(false);
+    },
+    onError: (error) => {
+      toast.error("Failed to add feedback", error);
+    },
+  });
   const {
     register,
     handleSubmit,
@@ -13,8 +30,12 @@ const FeedbackModal = ({ setIsOpen }) => {
     // formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data.key());
-    // login
+    console.log(data);
+    const { name, imageUrl, feedback } = data;
+    const feedbackData = { name, imageUrl, feedback };
+    // send data on feedback
+    console.log(feedbackData);
+    mutateAsync({ feedbackData });
   };
 
   useEffect(() => {

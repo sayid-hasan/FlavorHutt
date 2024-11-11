@@ -24,6 +24,7 @@ const GalleryPage = () => {
     isLoading,
     isError,
     error,
+    refetch,
   } = useQuery({
     queryFn: () => getData(),
     queryKey: ["feedBacks"],
@@ -49,6 +50,7 @@ const GalleryPage = () => {
     console.log(error);
   }
   if (isLoading) return <GalleryPageSkeleton></GalleryPageSkeleton>;
+  refetch();
   return (
     <div>
       <Helmet>

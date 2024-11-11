@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         element: <RegisterPage></RegisterPage>,
       },
       {
-        path: "/purchase",
+        path: "/purchase/:id",
         element: (
           <PrivateRoute>
             <PurchasePage></PurchasePage>

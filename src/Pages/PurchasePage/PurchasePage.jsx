@@ -3,16 +3,29 @@ import bgImg from "../../assets/Images/PurchasePageBg.jpg";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import GlassmorphismButton from "../../Components/PrimaryButton/GlassmorphismBtn/GlassmorphismBtn";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxios from "../../Hooks/useAxios";
 
 import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
 const PurchasePage = () => {
   const { user } = useContext(AuthContext);
-  const location = useLocation();
+  const { id } = useParams();
 
-  const { foodName, price, stock, addedBy } = location.state;
+  const axios = useAxios();
+
+  // get food data
+  const { data: foodData = [] } = useQuery({
+    queryFn: () => getData(),
+    queryKey: ["foodItemDetails"],
+  });
+  const getData = async () => {
+    const { data } = await axios.get(`/allFoodItems/${id}`);
+    return data;
+  };
+
+  const { foodName, price, stock, addedBy } = foodData;
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(price);
   const axiosNonSecure = useAxios();

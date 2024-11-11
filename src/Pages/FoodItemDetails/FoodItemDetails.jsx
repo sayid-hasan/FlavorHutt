@@ -136,13 +136,7 @@ const FoodItemDetails = () => {
               </div>
               {/* puschase Buton */}
               <Link
-                to="/purchase"
-                state={{
-                  foodName: foodName,
-                  price: price,
-                  stock: stock,
-                  addedBy,
-                }}
+                to={`/purchase/${id}`}
                 className="flex justify-end items-stretch py-1 w-1/2 "
               >
                 <BtnWithICon
