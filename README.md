@@ -40,6 +40,8 @@ A dynamic and feature-rich restaurant website that allows users to explore delic
 
 
 
+## 🚀 Live Demo
+[FlavorHutt Website](https://flavorhutt.web.app)
 ## 🙌 Acknowledgements
 
 - Developed by **Syed Hasan** with a focus on modern web technologies.
